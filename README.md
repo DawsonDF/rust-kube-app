@@ -24,31 +24,31 @@ This is for learning purposes to practice K8s and does not do anything interesti
 
 ## Deployment Instructions
 
-### 1. Start Minikube
+### Start Minikube
 
 ```bash
 minikube start
 ```
 
-### 2. Point to Minikube's Docker Daemon
+### Point to Minikube's Docker Daemon
 
 ```bash
 eval $(minikube docker-env)
 ```
 
-### 3. Build the Docker Image
+### Build the Docker Image
 
 ```bash
 docker build -t rust-kube-app .
 ```
 
-### 4. Deploy to Minikube cluster
+### Deploy to Minikube cluster
 
 ```bash
 kubectl apply -f deployment.yaml
 ```
 
-### 5. Validate deployment worked
+### Validate deployment worked
 
 ```bash
 kubectl get deployments
@@ -56,13 +56,21 @@ kubectl get pods
 kubectl get services
 ```
 
-### 6. Start the tunnel for the service
+### Start the tunnel for the service
 
 ```bash
 minikube service rust-kube-app-service
 ```
 
 ## Updating the Application
+
+### Rebuilding the Docker Image
+
+```bash
+docker build -t rust-kube-app .
+```
+
+### Restarting the Deployment
 
 ```bash
 kubectl rollout restart deployment/rust-kube-app
