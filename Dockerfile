@@ -1,10 +1,8 @@
-FROM rust:latest as builder
+FROM rust:latest as build-env
 WORKDIR /app
-COPY . .
+COPY . /app
 RUN cargo build --release
 
-FROM ubuntu:22.04
-WORKDIR /app
-COPY --from=builder /app/target/release/rust-kube-app /app/rust-kube-app
-EXPOSE 8080
+FROM gcr.io/distroless/cc-debian12
+COPY --from=build-env /app/target/release/rust-kube-app /
 CMD ["./rust-kube-app"]
